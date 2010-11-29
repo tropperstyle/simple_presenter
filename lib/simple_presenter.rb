@@ -1,3 +1,5 @@
+require 'active_support/core_ext/class/attribute'
+
 module SimplePresenter
   def self.included(base)
     base.extend(ClassMethods)
@@ -43,9 +45,7 @@ module SimplePresenter
     #     end
     #   end
     def define_presentation(options = {}, &block_extension)
-      options.assert_valid_keys(:with)
-      define_attribute_methods
-      class_inheritable_accessor :presenter_modules
+      class_attribute :presenter_modules
       self.presenter_modules = create_presentation_modules(options[:with], block_extension)
     end
 
